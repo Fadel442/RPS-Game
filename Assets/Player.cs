@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,9 +11,21 @@ public class Player : MonoBehaviour
     [SerializeField] Character selectedCharacter;
     [SerializeField] List<Character> characterList;
     [SerializeField] Transform atkRef;
+    [SerializeField] bool isBot;
 
     public Character SelectedCharacter { get => selectedCharacter; }
     public List<Character> CharacterList { get => characterList;  }
+
+    private void Start()
+    {
+        if(isBot)
+        {
+            foreach (var character in characterList)
+            {
+                character.Button.interactable = false;
+            }
+        }
+    }
 
     public void Prepare()
     {
@@ -27,10 +39,30 @@ public class Player : MonoBehaviour
 
     public void setPlay(bool value)
     {
-        foreach (var character in characterList)
+        if(isBot)
         {
-            character.Button.interactable = value;
+
+            List<Character> lotteryList = new List<Character>();
+            foreach (var character in characterList)
+            {
+                int ticket = Mathf.CeilToInt((float) character.CurrentHP / (float) character.MaxHP) * 10;
+                for (int i = 0; i < ticket; i++)
+                {
+                    lotteryList.Add(character);
+                }
+            }
+
+            int index = Random.Range(0, lotteryList.Count);
+            selectedCharacter = lotteryList[index];
         }
+        else
+        {
+            foreach (var character in characterList)
+            {
+                character.Button.interactable = value;
+            }
+        }
+        
     }
     
 //manual move
