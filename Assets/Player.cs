@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     [SerializeField] bool isBot;
     [SerializeField] List<Character> characterList;
     [SerializeField] UnityEvent onTakeDamage;
+  
 
     
     public Character SelectedCharacter { get => selectedCharacter; }
