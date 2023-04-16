@@ -152,8 +152,8 @@ public class BattleManager : MonoBehaviour
        }
        else if (type1 == CharacterType.Paper && type2 == CharacterType.Rock)
        {
-            winner = player2;
-            loser = player1;
+            winner = player1;
+            loser = player2;
        }
        else if (type1 == CharacterType.Scissor && type2 == CharacterType.Rock)
        {
